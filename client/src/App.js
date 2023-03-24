@@ -17,7 +17,7 @@ const App = () => {
   // Mostramos la aplicación
   return (
     <main>
-      <h1>Curso de React de TrainingIT</h1>
+      <h1>Curso de React de TRAINING-IT</h1>
       <p>
         Estado del servidor:
         {loading ? " Cargando..." : <Status status={status} />}
