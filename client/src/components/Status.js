@@ -1,4 +1,4 @@
-import "../views/Status.css";
+import "../styles/Status.css";
 
 // Mostramos si el servidor funciona o no.
 const Status = ({ status }) => {
