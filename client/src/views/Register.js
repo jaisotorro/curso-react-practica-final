@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { DEFAULT_STATE } from "../constants/form";
 import "../styles/Form.css";
 import useApi from "../hooks/useApi";
+import Token from "../contexts/token";
 
 const Register = () => {
+    const token = useContext(Token);
 console.log("en Register");
     const [formState, setFormState] = useState(DEFAULT_STATE);
 
@@ -14,17 +16,6 @@ console.log("en Register");
       [key]: e.target.value
     });
   }
-
-//   const onSubmit = (e) => {
-//     e.preventDefault();
-// console.log("*** en Register-onSubmit-ini");
-//     registerRequest.updateParams("/api/register", "POST", "", JSON.stringify({username: formState.username, password: formState.password}));
-
-//         if (registerRequest.data){
-//             token = registerRequest.data.token;
-// console.log("*** en Register-con datos de respuesta. token: "+token);
-//         }
-//   }
 
     const registerRequest = useApi();    
 
@@ -37,10 +28,10 @@ console.log("*** en Register-signIn-ini");
 
     };
 
-    let token; // pendiente contexto o Redux
-    if (registerRequest.data){
-        token = registerRequest.data.token;
-        console.log("*** en Register-con datos de respuesta. token: "+token);
+    if (registerRequest.data && token.current == ""){
+        console.log("*** en Register-con datos de respuesta. token en data: "+registerRequest.data.token);
+        token.update(registerRequest.data.token);
+        console.log("*** en Register-con datos de respuesta. token.current: "+token.current);
     }
 
     

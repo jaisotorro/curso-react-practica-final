@@ -8,15 +8,36 @@ import "./styles/Layout.css";
 import Token from "./contexts/token";
 
 // Componente principal de la aplicación.
-const App = () => {
+const AppBackup = () => {
+  const [status, setStatus] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const [token, setToken] = useState("");
-  
-  const ahora = new Date();
-  console.log("*** en App. token: "+token+". Ahora: "+ahora.getHours()+":"+ahora.getMinutes()+":"+ahora.getSeconds()+"."+ahora.getMilliseconds());
+  // Cargamos el estado del servidor
+  useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setStatus(data.status === "ok"))
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Mostramos la aplicación
+  // return (
+  //   <main>
+  //     <h1>Curso de React de TRAINING-IT</h1>
+  //     <p>
+  //       Estado del servidor:
+  //       {loading ? " Cargando..." : <Status status={status} />}
+  //     </p>
+  //   </main>
+  // );
+
+  // return (<Layout title="APLICACION DE GESTION DE TAREAS ">
+  //   <Register />
+  // </Layout>
+  // );
 
   return (
-    <Token.Provider value={{current: token, update: setToken}}>
+    <Token.Provider>
       <Router>
       <Layout title="APLICACION DE GESTION DE TAREAS ">
           <nav className="secondary">
@@ -56,4 +77,4 @@ const App = () => {
 
 };
 
-export default App;
+export default AppBackup;

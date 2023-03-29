@@ -1,19 +1,18 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useEffect, useState, useContext } from "react";
+import Token from "../contexts/token";
 
 // Hook para acceder a la API
 //
-// @param {String} url La URL a la que acceder
-// @param {String} token El token de autenticacion si estuviera presente
-// @param {Object} fetchParams Un objeto para pasar a fetch con configuración extra
 const useApi = () => {
   const [url, setUrl] = useState("");
   const [method, setMethod] = useState(null);
-  const [token, setToken] = useState(null);
   const [requestBody, setRequestBody] = useState({});
   // const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [performRequest, setPerformRequest] = useState(false);
+
+  const token = useContext(Token);
   
   const updateParams = (pUrl, pMethod = "GET", pToken = "", pRequestBody = {}) => {
 console.log("*** en updateParams-ini");
@@ -21,9 +20,6 @@ console.log("*** en updateParams-ini");
 console.log("*** en updateParams-1");    
     setUrl(pUrl);
     setMethod(pMethod);
-    if (pToken && pToken != ""){
-      setToken(pToken);
-    }
     if (pRequestBody != {}){
       setRequestBody(JSON.stringify(pRequestBody));
     }
@@ -38,44 +34,46 @@ console.log("*** en updateParams-1");
       body: requestBody
     };
     conf.headers["Content-Type"] = "application/json"; // forma alternativa, pendiente hacerlo dinamico para resto peticiones
-    // Comprobamos el token
     if (conf.headers == null) {
       conf.headers = {};
     }
-    if (token && token != "") {
-      conf.headers["api-token"] = token;
+    if (token.current && token.current != "") {
+      conf.headers["api-token"] = token.current;
     }
 
     return conf;
-  }, [method, token]);
+  }, [method]);
 
   useEffect(() => {
 console.log("*** en useEffect-ini. performRequest = "+performRequest);
           setError("");
           if (performRequest) {
-console.log("*** en useEffect-antes llamada API");
+console.log("*** en useEffect-antes llamada API-1");
+if (config.headers["api-token"]){ 
+  console.log("*** en useEffect-antes llamada API-2. token en peticion: "+config.headers['api-token']);
+}
             // Realizamos la llamada al servidor
              fetch(url, config)
               .then((res) => res.json())
               .then((json) => {
                 if (json.error != null) {
-console.log("*** en useEffect-ERROR. error: "+json.error);
+console.log("*** en useEffect-DESPUES llamada API con ERROR. error: "+json.error);
                   setError(json.error);
                 } else {
-console.log("*** en useEffect-OK");
+console.log("*** en useEffect-DESPUES llamada API con OK");
                   setData(json);
-                   setToken(json.token);
-                   tokenProvis = json.token;
                 }
               })
               .finally(() => setPerformRequest(false));
           }
    
-      }, [performRequest ]);
+      }, [performRequest, token ]);
 
-console.log("*** En useApi-antes return-1");
-if (data){
-console.log("*** En useApi-antes return-2. data.token= "+data.token);
+// console.log("*** En useApi-antes return-1");
+if (data && data.token /* && token.current == "" */ ){
+  // token.update(data.token);
+  console.log("*** En useApi-antes return-2. data.token= "+data.token);
+  console.log("*** En useApi-antes return-2. token.current= "+token.current);
 }
 
   return {
