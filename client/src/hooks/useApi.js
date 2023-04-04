@@ -4,19 +4,19 @@ import Token from "../contexts/token";
 // Hook para acceder a la API
 //
 const useApi = () => {
-  const [url, setUrl] = useState("");
-  const [method, setMethod] = useState(null);
-  const [requestBody, setRequestBody] = useState({});
+  // const [url, setUrl] = useState("");
+  // const [method, setMethod] = useState(null);
+  // const [requestBody, setRequestBody] = useState({});
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [performRequest, setPerformRequest] = useState(false);
+  // const [performRequest, setPerformRequest] = useState(false);
   const [request, setRequest] = useState({});
 
   const token = useContext(Token);
 
   const updateRequest = (newRequest) => {
     setRequest(newRequest);
-    setPerformRequest(true);
+    // setPerformRequest(true);
   }
   
   useEffect(() => {
