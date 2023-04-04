@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { DEFAULT_STATE } from "../constants/form";
 import "../styles/Form.css";
 import useApi from "../hooks/useApi";
@@ -19,20 +19,25 @@ console.log("en Register");
 
     const registerRequest = useApi();    
 
-  // Función para registrar una nueva cuenta (pendiente adaptar)
-  const signIn = () => {
+    const signIn = () => {
 console.log("*** en Register-signIn-ini");
-    registerRequest.updateParams("/api/register", "POST", "", {username: formState.username, password: formState.password});
+      registerRequest.updateRequest({url: "/api/register", method: "POST", body: {username: formState.username, password: formState.password}});
+
+    // registerRequest.updateParams("/api/register", "POST", {username: formState.username, password: formState.password});
     // registerRequest.updateParams("/api/register", "POST", "", JSON.stringify({username: formState.username, password: formState.password}));
     // registerRequest.updateParams("/api/register", "POST", "", JSON.stringify({username: "Usu", password: "123"}));
 
     };
 
+  useEffect( () => {
     if (registerRequest.data && token.current == ""){
-        console.log("*** en Register-con datos de respuesta. token en data: "+registerRequest.data.token);
-        token.update(registerRequest.data.token);
-        console.log("*** en Register-con datos de respuesta. token.current: "+token.current);
+      console.log("*** en Register-con datos de respuesta. token en data: "+registerRequest.data.token);
+      token.update(registerRequest.data.token);
+      console.log("*** en Register-con datos de respuesta. token.current: "+token.current);
     }
+  },[registerRequest]
+  );
+
 
     
 
