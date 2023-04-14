@@ -21,13 +21,21 @@ const useApi = () => {
   
   useEffect(() => {
     setError("");
-    if (request && request.method && request.url && request.body) {
+    if (request && request.method && request.url) {
+      let body;
+      if (request.body) {
+        body = JSON.stringify(request.body);
+      }
+
       const config = {
         method: request.method,
         headers: {},
-        body: request.body
+        body: body
       }
-      config.headers["Content-Type"] = "application/json"; // forma alternativa, pendiente hacerlo dinamico para resto peticiones
+      if (request.headers && request.headers.contentType) {
+        // config.headers["Content-Type"] = "application/json"; // forma alternativa, pendiente hacerlo dinamico para resto peticiones
+        config.headers["Content-Type"] = request.headers.contentType; 
+      }
       if (token.current && token.current != "") {
         config.headers["api-token"] = token.current;
       }
@@ -42,7 +50,7 @@ const useApi = () => {
           }
         });
     }
-  }, [request, token ]);
+  }, [request]);
 
   return {
     data,

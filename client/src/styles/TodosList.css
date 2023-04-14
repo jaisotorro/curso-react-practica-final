@@ -1,0 +1,18 @@
+.todoslist_item label {
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+.todoslist_item input {
+  display: inline-block;
+  margin: 0 0.25rem 0 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+}
+
+.todoslist_item.completed {
+  text-decoration: line-through;
+}

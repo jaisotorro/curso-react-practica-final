@@ -3,10 +3,17 @@ import { DEFAULT_STATE } from "../constants/form";
 import "../styles/Form.css";
 import useApi from "../hooks/useApi";
 import Token from "../contexts/token";
+import { useLocation } from "react-router";
+import { useDispatch } from "react-redux";
+import { connect } from "../actions/connection";
 
-const Register = () => {
+const Login = () => {
+    const dispatch = useDispatch();
     const token = useContext(Token);
+    const { state } = useLocation();
     const [formState, setFormState] = useState(DEFAULT_STATE);
+    const displayAlert = state && state.msg != null 
+    const loginRequest = useApi();    
 
   const onChange = (key) => {
     return (e) => setFormState({
@@ -15,27 +22,24 @@ const Register = () => {
     });
   }
 
-    const registerRequest = useApi();    
 
-    const signIn = (e) => {
+    const login = (e) => {
       e.preventDefault();
-      registerRequest.updateRequest({url: "/api/register", method: "POST", body: {username: formState.username, password: formState.password}, headers: {contentType: "application/json"}});
+      loginRequest.updateRequest({url: "/api/login", method: "POST", body: {username: formState.username, password: formState.password}, headers: {contentType: "application/json"}});
     };
 
   useEffect( () => {
-    if (registerRequest.data && registerRequest.data.token && token.current == ""){
-      token.update(registerRequest.data.token);
-      localStorage.setItem('token', registerRequest.data.token);
+    if (loginRequest.data && loginRequest.data.token && token.current == ""){
+      token.update(loginRequest.data.token);
+      localStorage.setItem('token', loginRequest.data.token);
+      // dispatch(addTodo(connect));
     }
-  },[registerRequest]
+  },[loginRequest]
   );
-
-
-    
 
   return <div className="row">
     <div className="col-6">
-      <form onSubmit={signIn}>
+      <form onSubmit={login}>
         <br/><br/>
         <h1>
         <label htmlFor="username">Usuario: </label>
@@ -47,12 +51,15 @@ const Register = () => {
         <input id="password" type="password" value={formState.password} onChange={onChange("password")} />
         </h1>
         <br/>
-        <input type="submit" value="Crear cuenta" />
+        <input type="submit" value="Conectarme" />
       </form>
-      {token.current && token.current != "" ? <h2>Con token</h2> : <h2>Sin token</h2>}
     </div>
+    {displayAlert && (
+        <div className="login-alert" role="alert">
+          {state.msg}
+        </div>
+      )}
+
   </div>
-
-
 }
-export default Register;
+export default Login;
