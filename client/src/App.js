@@ -11,10 +11,11 @@ import Token from "./contexts/token";
 import Logout from "./components/Logout";
 import Forbiden from "./views/Forbiden";
 import PrivateRoute from "./components/PrivateRoute";
-import Login from "./views/Login";
+import Login from "./views/Login"; // comentado provis para provocar error
 import { Provider } from "react-redux";
 import store from "./store";
 import ConnectionData from "./components/connectionData";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 
 
@@ -22,12 +23,12 @@ import ConnectionData from "./components/connectionData";
 // Componente principal de la aplicación.
 const App = () => {
   const [token, setToken] = useState("");
-
+  const [provocarError, setprovocarError] = useState(true);
   // const [showModal, setShowModal] = useState(false);
   // const openModal = () => setShowModal(true);
   // const closeModal = () => setShowModal(false);
 
-  if (localStorage.getItem("token") != "" && token == ""){
+  if (localStorage.getItem("token") != "" && token == "") {
     setToken(localStorage.getItem("token"));
   }
 
@@ -38,42 +39,58 @@ const App = () => {
   //     console.log("*** En App-useEffect. token en localStorage: "+localStorage.getItem('token'));
   //   }, [token]
   // );
-  
+
   const ahora = new Date();
-  console.log("*** en App. token: "+token+". Ahora: "+ahora.getHours()+":"+ahora.getMinutes()+":"+ahora.getSeconds()+"."+ahora.getMilliseconds());
+  console.log("*** en App. token: " + token + ". Ahora: " + ahora.getHours() + ":" + ahora.getMinutes() + ":" + ahora.getSeconds() + "." + ahora.getMilliseconds());
+
+  // const provocarError = () => {
+  //   const char = "a";
+  //   const num = 5/char;
+  //   let dummy = "dummy";
+  // }
+
+  const onReset = () => {
+    // ¿?
+  };
+
 
   return (
-    <Provider store={store}>
-      <Token.Provider value={{current: token, update: setToken}}>
-        <Router>
-        <Layout title="APLICACION DE GESTION DE TAREAS ">
-            <nav className="secondary">
-              <NavLink exact activeClassName="active" to="/">
-                Inicio
-              </NavLink>{" "}
-              <NavLink activeClassName="active" to="/register">
-                Crear cuenta
-              </NavLink>{" "}
-              <NavLink activeClassName="active" to="/login">
-                Conectarme
-              </NavLink>{" "}
-              <NavLink activeClassName="active" to="/queryTodos">
-                Consultar mis tareas
-              </NavLink>{" "}
-              <NavLink activeClassName="active" to="/newTodo">
-                Nueva tarea
-              </NavLink>{" "}
-              <NavLink activeClassName="active" to="/logout">
-                Desconectarme
-              </NavLink>{" "}
-              <NavLink activeClassName="active" to="/connection">
-                Datos conexion
-              </NavLink>
-            </nav>
-              <Route path="/" exact>
+    // <ErrorBoundary message="Algo ha salido mal!" onReset={onReset}>
+    <ErrorBoundary message="Se ha producido un error inesperado en la aplicación" onReset={onReset}>
+      <Provider store={store}>
+        <Token.Provider value={{ current: token, update: setToken }}>
+          <Router>
+            <Layout title="APLICACION DE GESTION DE TAREAS ">
+              <nav className="secondary">
+              <NavLink exact activeClassName="active" to={ROOTPATH}>
+                {/* <NavLink exact activeClassName="active" to="/"> */}
+                  Inicio
+                </NavLink>{" "}
+                <NavLink activeClassName="active" to={ROOTPATH+"/register"}>
+                  Crear cuenta
+                </NavLink>{" "}
+                <NavLink activeClassName="active" to="/login">
+                  Conectarme
+                </NavLink>{" "}
+                <NavLink activeClassName="active" to="/queryTodos">
+                  Mis tareas
+                {/* </NavLink>{" "}
+                <NavLink activeClassName="active" to="/newTodo">
+                  Nueva tarea */}
+                </NavLink>{" "}
+                <NavLink activeClassName="active" to="/logout">
+                  Desconectarme
+                </NavLink>{" "}
+                <NavLink activeClassName="active" to="/connection">
+                  Datos conexion
+                </NavLink>{" "}
+              </nav>
+              {/* <Route path="/" exact> */}
+              <Route path={ROOTPATH} exact>              
                 <Home />
               </Route>
-              <Route path="/register">
+              {/* <Route path="/register"> */}
+              <Route path={ROOTPATH+"/register"}>              
                 <Register />
               </Route>
               <Route path="/login">
@@ -82,12 +99,14 @@ const App = () => {
               {/* <Route path="/newTodo">
                 {token.current ? <NewTodo /> : <Forbiden functionality="crear una nueva tarea" />}
               </Route> */}
-              <PrivateRoute path="/newTodo">
+              {/* <PrivateRoute path="/newTodo">
                 <NewTodo />
-              </PrivateRoute>            
-              <Route path="/queryTodos">
-                <QueryTodos />
-              </Route>
+              </PrivateRoute> */}
+              <ErrorBoundary message="Se ha producido un error inesperado en la consulta de tareas" onReset={onReset}>
+                <Route path="/queryTodos">
+                  <QueryTodos />
+                </Route>
+              </ErrorBoundary>
               <Route path="/logout">
                 <Logout />
               </Route>
@@ -96,16 +115,12 @@ const App = () => {
               </Route>
               <h3>{"token en estado: " + token}</h3>
               <h3>{"token en localStorage: " + localStorage.getItem('token')}</h3>
-          </Layout>
-        </Router>
-        {/* <Modal show={showModal} onClose={closeModal}>
-          <h3>¿Estás seguro de que deseas eliminar esta tarea? (tras eliminarla, debes reconsultar para ver refrescada la lista)</h3>
-          <button>Aceptar</button>
-          <button>Cancelar</button>
-        </Modal> */}
-      </Token.Provider> 
-    </Provider>
-);
+            </Layout>
+          </Router>
+        </Token.Provider>
+      </Provider>
+    </ErrorBoundary>
+  );
 
 };
 

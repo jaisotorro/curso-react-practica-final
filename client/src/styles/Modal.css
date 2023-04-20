@@ -1,6 +1,6 @@
 .modal {
   animation: slide-in .15s ease-in;
-  background-color: var(--mini-color-element-background);
+  background-color: white;
   border-radius: var(--mini-border-radius);
   border: var(--mini-border-size) solid var(--mini-color-border-colo);
   box-shadow: 2px 2px 15px -3px rgba(0, 0, 0, 0.3);

@@ -2,22 +2,13 @@ import { useState, useContext } from "react"
 import { DEFAULT_STATE } from "../constants/form";
 import "../styles/Form.css";
 import useApi from "../hooks/useApi";
-import Modal from "../components/Modal";
-import ModalType from "../contexts/modalType";
 
 const NewTodo = () => {
+console.log("en CreateTodo");
     const [formState, setFormState] = useState(DEFAULT_STATE);
     const createTodoRequest = useApi();    
-    const modalType = useContext(ModalType);
 
-    const closeModal = () => {
-      // todo.update(null); // descomentarlo para provocar error al guardar
-      // setShowModal(false);
-      modalType.update("");
-      setFormState({});
-    }
-
-
+    // Devolvemos una funcion para modificar una parte del estado! (pendiente revisar comentario)
   const onChange = (key) => {
     return (e) => setFormState({
       ...formState,
@@ -25,17 +16,19 @@ const NewTodo = () => {
     });
   }
 
+
+  // Función para crear una nueva tarea
   const create = (e) => {
+console.log("*** en CreateTodo-create-ini");
     e.preventDefault();
     createTodoRequest.updateRequest({url: "/api/notes", method: "POST", body: {title: formState.title, content: formState.content}, headers: {contentType: "application/json"}});
-    closeModal();
     };
 
-  return (<Modal show={modalType.current == "create"} onClose={closeModal}>
+  return <div className="row">
+    <div className="col-6">
       <form onSubmit={create}>
         <br/><br/>
         <h1>Nueva tarea</h1>
-        <h3>(Tras crearla, debes reconsultar para refrescar la lista)</h3>
         <h1>
         <label htmlFor="title">Título: </label>
         <input id="title" type="text" value={formState.title} onChange={onChange("title")} />
@@ -46,9 +39,10 @@ const NewTodo = () => {
         <input id="content" type="text" value={formState.content} onChange={onChange("content")} />
         </h1>
         <br/>
-        <input type="submit" value="Guardar" />
+        <input type="submit" value="Guardar tarea" />
       </form>
-  </Modal>);
+    </div>
+  </div>
 
 
 }

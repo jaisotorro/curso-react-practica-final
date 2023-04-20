@@ -3,4 +3,5 @@ import { createStore} from "redux";  //deprecado
 import connection from "./reducers/connection";
 
 // export default configureStore({reducer: connection});
+// export default createStore({connection}); //deprecado
 export default createStore(connection); //deprecado

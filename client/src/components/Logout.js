@@ -15,7 +15,7 @@ const Logout = () => {
             if (token.current && token.current != "") {
                 token.update("");
                 localStorage.setItem('token', "");
-                dispatch(addTodo(disconnect));
+                // dispatch(addTodo(disconnect));
             }
         
         },

@@ -1,5 +1,9 @@
+const { DefinePlugin } = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { resolve } = require("path");
+// const { rootPath } = "/";
+// const  rootPath  = "/";
+const  rootPath  = "/practica-final";
 
 /**
  * Configuración para compilar el cliente de la práctica final
@@ -47,6 +51,9 @@ module.exports = {
       favicon: "./static/favicon.ico",
       filename: "index.html",
     }),
+    new DefinePlugin({
+      ROOTPATH: JSON.stringify(rootPath),
+    }),    
   ],
   // Por ahora, incluimos siempre los source maps para que las herramientas
   // de desarrollo del navegador muestren el codigo fuente
