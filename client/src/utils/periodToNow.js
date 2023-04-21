@@ -1,7 +1,7 @@
 export const periodToNow = (sinceTime, unit="H") => {
 /* Componente "tonto" creado para practicar los tests de jest, 
     Devuelve el periodo transcurrido desde la fecha/hora recibida hasta el momento actual, medido en la unidad de tiempo también recibida 
-    Usado para mostrar los datos de conexión (pendiente)
+    Usado para mostrar los datos de conexión
 */
     const now = new Date();
     const milisec = now.getTime() - sinceTime.getTime();

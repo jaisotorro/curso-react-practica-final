@@ -6,7 +6,8 @@ import store from "../store";
 
 
 const ConnectionData = () => {
-    const [showModal, setShowModal] = useState(false);
+
+   const [showModal, setShowModal] = useState(false);
     const user = store.connection.user;
     const time = store.connection.time;
     // const user = useSelector((state) => getUser(state));

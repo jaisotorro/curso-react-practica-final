@@ -33,7 +33,6 @@ const useApi = () => {
         body: body
       }
       if (request.headers && request.headers.contentType) {
-        // config.headers["Content-Type"] = "application/json"; // forma alternativa, pendiente hacerlo dinamico para resto peticiones
         config.headers["Content-Type"] = request.headers.contentType; 
       }
       if (token.current && token.current != "") {

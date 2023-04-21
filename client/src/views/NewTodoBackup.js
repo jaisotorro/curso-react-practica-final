@@ -2,13 +2,13 @@ import { useState, useContext } from "react"
 import { DEFAULT_STATE } from "../constants/form";
 import "../styles/Form.css";
 import useApi from "../hooks/useApi";
+import { PATHS } from "../constants/paths";
 
 const NewTodo = () => {
 console.log("en CreateTodo");
     const [formState, setFormState] = useState(DEFAULT_STATE);
     const createTodoRequest = useApi();    
 
-    // Devolvemos una funcion para modificar una parte del estado! (pendiente revisar comentario)
   const onChange = (key) => {
     return (e) => setFormState({
       ...formState,
@@ -21,7 +21,7 @@ console.log("en CreateTodo");
   const create = (e) => {
 console.log("*** en CreateTodo-create-ini");
     e.preventDefault();
-    createTodoRequest.updateRequest({url: "/api/notes", method: "POST", body: {title: formState.title, content: formState.content}, headers: {contentType: "application/json"}});
+    createTodoRequest.updateRequest({url: PATHS.api.notes, method: "POST", body: {title: formState.title, content: formState.content}, headers: {contentType: "application/json"}});
     };
 
   return <div className="row">

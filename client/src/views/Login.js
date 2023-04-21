@@ -1,4 +1,4 @@
-// import { useState, useContext, useEffect } from "react" // comentado provis para provocar error
+import { useState, useContext, useEffect } from "react" // comentar provis para provocar error
 import { DEFAULT_STATE } from "../constants/form";
 import "../styles/Form.css";
 import useApi from "../hooks/useApi";
@@ -6,6 +6,8 @@ import Token from "../contexts/token";
 import { useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import { connect } from "../actions/connection";
+import { PATHS } from "../constants/paths";
+import { Result } from "./Result";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -13,7 +15,8 @@ const Login = () => {
     const { state } = useLocation();
     const [formState, setFormState] = useState(DEFAULT_STATE);
     const displayAlert = state && state.msg != null 
-    const loginRequest = useApi();    
+    const loginRequest = useApi();
+    const [resultMsg, setResultMsg] = useState(null);
 
   const onChange = (key) => {
     return (e) => setFormState({
@@ -25,14 +28,20 @@ const Login = () => {
 
     const login = (e) => {
       e.preventDefault();
-      loginRequest.updateRequest({url: "/api/login", method: "POST", body: {username: formState.username, password: formState.password}, headers: {contentType: "application/json"}});
+      loginRequest.updateRequest({url: PATHS.api.login, method: "POST", body: {username: formState.username, password: formState.password}, headers: {contentType: "application/json"}});
     };
 
   useEffect( () => {
-    if (loginRequest.data && loginRequest.data.token && token.current == ""){
-      token.update(loginRequest.data.token);
-      localStorage.setItem('token', loginRequest.data.token);
-      // dispatch(addTodo(connect));
+    if (loginRequest) {
+      if (loginRequest.data && loginRequest.data.token && token.current == ""){
+        token.update(loginRequest.data.token);
+        localStorage.setItem('token', loginRequest.data.token);
+        // dispatch(addTodo(connect));
+        setResultMsg("Te has conectado correctamente. Ya puedes gestionar tus tareas");
+      }
+      if (loginRequest.error != null && loginRequest.error != "") {
+        setResultMsg("OOPS¡¡. " + loginRequest.error);
+      }
     }
   },[loginRequest]
   );
@@ -53,6 +62,7 @@ const Login = () => {
         <br/>
         <input type="submit" value="Conectarme" />
       </form>
+      {resultMsg != null && <Result msg = {resultMsg} />}
     </div>
     {displayAlert && (
         <div className="login-alert" role="alert">

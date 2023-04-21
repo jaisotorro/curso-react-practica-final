@@ -7,6 +7,8 @@ import ModalType from "../contexts/modalType";
 import TodoToUpdate from "../contexts/todoToUpdate";
 import UpdateTodo from "../views/UpdateTodo";
 import ShowTodo from "../views/ShowTodo";
+import Requery from "../contexts/requery";
+import { PATHS } from "../constants/paths";
 
 
 const TodosList = ({ todos }) => {
@@ -17,20 +19,23 @@ const TodosList = ({ todos }) => {
   const [todo, setTodo] = useState(null);
   // const [modalType, setModalType] = useState("");
   const modalType = useContext(ModalType);
+  const requery = useContext(Requery);
   
-  const openModal = (todoId, pModalType) => {
+
+  const openModal = (todo, pModalType) => {
     switch (pModalType){
       case "show":
-        setTodo({id: todoId});
+        setTodo({id: todo.id});
+        break;
+      case "update":
+        setTodo({id: todo.id, title: todo.title, content: todo.content});
         break;
       default:
         setTodo(null);
     }
     modalType.update(pModalType);
-    // setModalType(pModalType);
   };
-
-
+  
   const openModalDelete = (idTodo) => {
     setShowModal(true);
     setIdTodo(idTodo);
@@ -48,41 +53,33 @@ const TodosList = ({ todos }) => {
 
   // const deleteTodo = (idTodo) => {
   const deleteTodo = () => {
-    deleteTodoRequest.updateRequest({ url: "/api/notes/" + idTodo, method: "DELETE" });
+    deleteTodoRequest.updateRequest({ url: PATHS.api.notes + "/" + idTodo, method: "DELETE" });
     setShowModal(false);
+    requery.update(true);
   }
-
 
   return (<TodoToUpdate.Provider value={{ current: todoToUpdate, update: setTodoToUpdate }}>
     <Todo.Provider value={{ current: todo, update: setTodo }}>
-      {/* <ModalType.Provider value={{current: modalType, update: setModalType}}> */}
         <section className="todoslist">
           <h3>Lista de Tareas</h3>
           <ul className="todoslist_list">
             {todos.map((todo, i) => (
               <li key={i} className="todoslist_item" >
                 {todo.title + ": " + todo.content}
-                <button onClick={() => openModal(todo.id, "show")}>Ver</button>
-                {/* <button onClick={() => setTodoToUpdate(todo)}>Modificar</button>             */}
-                <button onClick={() => openModalUpdate(todo)}>Modificar</button>
+                <button onClick={() => openModal(todo, "show")}>Ver</button>
+                <button onClick={() => openModal(todo, "update")}>Modificar</button>                
                 <button onClick={() => openModalDelete(todo.id)}>Eliminar</button>
               </li>
             ))}
           </ul>
-                
-          <Modal show={showModal} onClose={closeModal}>
-            {idTodo != null ? <>
-              <h3>¿Confirmas la eliminación de esta tarea? (tras eliminarla, debes reconsultar para refrescar la lista)</h3>
+          <Modal show={showModal && idTodo != null} onClose={closeModal}>
+              <h3>¿Confirmas la eliminación de esta tarea?</h3>
               <button onClick={deleteTodo}>Aceptar</button>
               <button onClick={closeModal}>Cancelar</button>
-            </> :
-        
-              <UpdateTodo />
-            }
           </Modal>
           <ShowTodo />
+          <UpdateTodo />
         </section>
-      {/* </ModalType.Provider>         */}
     </Todo.Provider>
   </TodoToUpdate.Provider>
   );

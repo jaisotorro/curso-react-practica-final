@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import Token from "../contexts/token";
+import { PATHS } from "../constants/paths";
 
 const PrivateRoute = ({ children, ...others }) => {
     const token = useContext(Token);
@@ -14,7 +15,7 @@ const PrivateRoute = ({ children, ...others }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: "/login",
+                            pathname: ROOTPATH + PATHS.login,
                             state: { msg: "Para acceder a esta funcionalidad, debes estar conectado" }
                         }}
                     />

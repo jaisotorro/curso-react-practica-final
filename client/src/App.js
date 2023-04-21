@@ -16,6 +16,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import ConnectionData from "./components/connectionData";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { PATHS } from "./constants/paths";
 
 
 
@@ -60,62 +61,53 @@ const App = () => {
       <Provider store={store}>
         <Token.Provider value={{ current: token, update: setToken }}>
           <Router>
-            <Layout title="APLICACION DE GESTION DE TAREAS ">
               <nav className="secondary">
-              <NavLink exact activeClassName="active" to={ROOTPATH}>
-                {/* <NavLink exact activeClassName="active" to="/"> */}
+                <NavLink exact activeClassName="active" to={ROOTPATH}>
                   Inicio
                 </NavLink>{" "}
-                <NavLink activeClassName="active" to={ROOTPATH+"/register"}>
+                <NavLink activeClassName="active" to={ROOTPATH + PATHS.register}>
                   Crear cuenta
                 </NavLink>{" "}
-                <NavLink activeClassName="active" to="/login">
+                <NavLink activeClassName="active" to={ROOTPATH + PATHS.login}>
                   Conectarme
                 </NavLink>{" "}
-                <NavLink activeClassName="active" to="/queryTodos">
+                <NavLink activeClassName="active" to={ROOTPATH + PATHS.private}>
                   Mis tareas
-                {/* </NavLink>{" "}
-                <NavLink activeClassName="active" to="/newTodo">
-                  Nueva tarea */}
                 </NavLink>{" "}
-                <NavLink activeClassName="active" to="/logout">
+                <NavLink activeClassName="active" to={ROOTPATH + PATHS.logout}>
                   Desconectarme
                 </NavLink>{" "}
-                <NavLink activeClassName="active" to="/connection">
+                <NavLink activeClassName="active" to={ROOTPATH + PATHS.connectionData}>
                   Datos conexion
                 </NavLink>{" "}
               </nav>
-              {/* <Route path="/" exact> */}
               <Route path={ROOTPATH} exact>              
+              <Layout title="GESTION DE TAREAS ">
                 <Home />
+                </Layout>
               </Route>
-              {/* <Route path="/register"> */}
-              <Route path={ROOTPATH+"/register"}>              
+              <Route path={ROOTPATH +  PATHS.register}>
                 <Register />
               </Route>
-              <Route path="/login">
+              <Route path={ROOTPATH + PATHS.login}>
                 <Login />
               </Route>
-              {/* <Route path="/newTodo">
-                {token.current ? <NewTodo /> : <Forbiden functionality="crear una nueva tarea" />}
-              </Route> */}
-              {/* <PrivateRoute path="/newTodo">
-                <NewTodo />
-              </PrivateRoute> */}
-              <ErrorBoundary message="Se ha producido un error inesperado en la consulta de tareas" onReset={onReset}>
-                <Route path="/queryTodos">
+              <ErrorBoundary message="Se ha producido un error inesperado en la gestión de tareas" onReset={onReset}>
+                <PrivateRoute path={ROOTPATH + PATHS.private}>
                   <QueryTodos />
-                </Route>
+                </PrivateRoute>
+                {/* <Route path={ROOTPATH + PATHS.manageTodos}>
+                  <QueryTodos />
+                </Route> */}
               </ErrorBoundary>
-              <Route path="/logout">
+              <Route path={ROOTPATH + PATHS.logout}>
                 <Logout />
               </Route>
-              <Route path="/connection">
+              <Route path={ROOTPATH + PATHS.connectionData}>
                 <ConnectionData />
               </Route>
               <h3>{"token en estado: " + token}</h3>
               <h3>{"token en localStorage: " + localStorage.getItem('token')}</h3>
-            </Layout>
           </Router>
         </Token.Provider>
       </Provider>
