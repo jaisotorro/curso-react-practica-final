@@ -68,6 +68,7 @@ const UpdateTodo = ({ idTodo }) => {
             </h1>
             <br />
             <input type="submit" value="Guardar" />
+            <button onClick={closeModal}>Cancelar</button>
         </form>
     </Modal>)
 }

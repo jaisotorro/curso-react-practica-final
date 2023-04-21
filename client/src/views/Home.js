@@ -4,15 +4,23 @@
 const Home = () => (
   <section aria-describedby="desc">
     {/* <NoExisto />  componente inexistente para provocar error */}
-    <p id="desc">
       <h2>Bienvenido a mi aplicación de gestion de tareas, donde podrás realizar las siguientes operaciones</h2>
       <h3>
       <ul>
-        <li>Crear una nueva cuenta </li>
-        <li>Etc... </li>
+        <li>Crear una cuenta de usuario </li>
+        <li>Conectarte con una de tus cuentas</li>
+        <li>Consultar los datos de tu conexión actual</li>
+        <li>Gestionar tus tareas. (necesitas estar conectado).  Esto incluye:: </li>
+        <h4>
+        <ul>
+        <li>Consultar tus tareas</li>
+        <li>Crear una nueva tarea</li>
+        <li>Modificar una tarea existente</li>
+        <li>Eliminar una tarea</li>
+        </ul>
+        </h4>
       </ul>
       </h3>
-    </p>
   </section>
 );
 

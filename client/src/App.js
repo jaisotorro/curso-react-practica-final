@@ -106,8 +106,8 @@ const App = () => {
               <Route path={ROOTPATH + PATHS.connectionData}>
                 <ConnectionData />
               </Route>
-              <h3>{"token en estado: " + token}</h3>
-              <h3>{"token en localStorage: " + localStorage.getItem('token')}</h3>
+              {/* <h3>{"token en estado: " + token}</h3>
+              <h3>{"token en localStorage: " + localStorage.getItem('token')}</h3> */}
           </Router>
         </Token.Provider>
       </Provider>
