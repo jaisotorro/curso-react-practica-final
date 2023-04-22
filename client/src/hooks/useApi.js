@@ -11,6 +11,7 @@ const useApi = () => {
   const [error, setError] = useState(null);
   // const [performRequest, setPerformRequest] = useState(false);
   const [request, setRequest] = useState({});
+  const [responsed, setResponsed] = useState(false);
 
   const token = useContext(Token);
 
@@ -19,6 +20,10 @@ const useApi = () => {
     // setPerformRequest(true);
   }
   
+  const updateResponsed = (newState) => {
+    setResponsed(newState);
+  }
+
   useEffect(() => {
     setError("");
     if (request && request.method && request.url) {
@@ -44,8 +49,10 @@ const useApi = () => {
         .then((json) => {
           if (json.error != null) {
             setError(json.error);
+            setResponsed(true);
           } else {
             setData(json);
+            setResponsed(true);
           }
         });
     }
@@ -54,7 +61,9 @@ const useApi = () => {
   return {
     data,
     error,
-    updateRequest
+    updateRequest,
+    responsed,
+    updateResponsed
   };
 };
 

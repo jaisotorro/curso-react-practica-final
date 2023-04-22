@@ -6,6 +6,7 @@ import Modal from "../components/Modal";
 import ModalType from "../contexts/modalType";
 import Requery from "../contexts/requery";
 import { PATHS } from "../constants/paths";
+import InformarTodos from "../contexts/informarTodos";
 
 const NewTodo = () => {
     const [formState, setFormState] = useState(DEFAULT_STATE);
@@ -14,6 +15,7 @@ const NewTodo = () => {
     const createTodoRequest = useApi();    
     const modalType = useContext(ModalType);
     const requery = useContext(Requery);
+    const informarTodos = useContext(InformarTodos);
 
     const create = (e) => {
       e.preventDefault();
@@ -22,10 +24,10 @@ const NewTodo = () => {
         title: titleRef.current.value,
         color: contentRef.current.value
       });      
+      informarTodos.update(true);
       createTodoRequest.updateRequest({url: PATHS.api.notes, method: "POST", body: {title: titleRef.current.value, content: contentRef.current.value}, headers: {contentType: "application/json"}});
       closeModal();
       requery.update(true);
-
       };
   
     const closeModal = () => {

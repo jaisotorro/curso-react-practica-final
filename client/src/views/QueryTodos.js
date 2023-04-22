@@ -5,41 +5,88 @@ import ModalType from "../contexts/modalType";
 import NewTodo from "./NewTodo";
 import Requery from "../contexts/requery";
 import { PATHS } from "../constants/paths";
+import InformarTodos from "../contexts/informarTodos";
 
 const QueryTodos = () => {
     const [todos, setTodos] = useState([]);
     const [requery, setRequery] = useState(false);
     const [modalType, setModalType] = useState("");
     const queryTodosRequest = useApi();
+    const [sortBy, setSortBy] = useState(null);
+    // const [informarTodos, setInformarTodos] = useState(true); // para evitar un bucle infinito en el useEffect (2) 
 
+    const query = (e) => {
+        e.preventDefault();
+        setSortBy(null);
+        // setInformarTodos(true);
+        queryTodosRequest.updateRequest({url: PATHS.api.notes, method: "GET"});
+    }
+
+    const requeryAndSort = (by) => {
+        // setRequery(true);
+        // setInformarTodos(true);
+        setSortBy(by);
+        // queryTodosRequest.updateResponsed(false);
+        queryTodosRequest.updateRequest({url: PATHS.api.notes, method: "GET"});
+    }
+    
+    // (1)
     useEffect(() => {
         if (requery){
+            // setInformarTodos(true);
             queryTodosRequest.updateRequest({url: PATHS.api.notes, method: "GET"});
             setRequery(false);
         }
     }, [requery])
 
-    const query = (e) => {
-        e.preventDefault();
-        queryTodosRequest.updateRequest({url: PATHS.api.notes, method: "GET"});
-    }
-
+    // (2)
     useEffect(() => {
-        if (queryTodosRequest && queryTodosRequest.data){
+        if (queryTodosRequest && queryTodosRequest.data ){                
+        // if (queryTodosRequest && queryTodosRequest.data && queryTodosRequest.responsed ){        
+        // if (queryTodosRequest && queryTodosRequest.data && informarTodos){
             setTodos(queryTodosRequest.data);
+            // queryTodosRequest.data = null; // ---------------- añadido
+            // setInformarTodos(false);
+            if (sortBy != null){
+                sort();
+                // setSortBy(null);
+            }
         }
-    }, [queryTodosRequest]);
+    // }, [queryTodosRequest,sortBy]);
+    }, [queryTodosRequest]);    
 
-    return (<Requery.Provider value={{current: requery, update: setRequery}} >
-        <ModalType.Provider value={{current: modalType, update: setModalType}}>
-            <h1>Gestión de tareas</h1>
-            <button onClick={query}>Consultar tareas</button>{" "}
-            <button onClick={() => setModalType("create")}>Crear tarea</button>
-            {todos.length > 0 ? 
-            <TodosList todos={todos} /> : 
-            <h1>Sin tareas</h1>}
-            <NewTodo />
-        </ModalType.Provider>
+    // useEffect(() => {
+    const sort = () => {
+        switch (sortBy) {
+            case "title":
+                setTodos([...todos].sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0)));
+                // const listaProvis = [...todos].sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0));
+                // setTodos(listaProvis);
+                break;
+            case "content":
+                setTodos([...todos].sort((a, b) => (a.content > b.content ? 1 : a.content < b.content ? -1 : 0)));
+                break;
+            default:
+                null;
+        }
+        // setSortBy(null);
+    }
+    // ,[sortBy]);
+
+    return (<Requery.Provider value={{ current: requery, update: setRequery }} >
+        {/* <InformarTodos.Provider value={{ current: informarTodos, update: setInformarTodos }} > */}
+            <ModalType.Provider value={{ current: modalType, update: setModalType }}>
+                <h1>Gestión de tareas</h1>
+                <button onClick={query}>Consultar tareas</button>{" "}
+                <button onClick={() => { requeryAndSort("title") }}>Reordenar tareas por título</button>{" "}
+                <button onClick={() => { requeryAndSort("content") }}>Reordenar tareas por contenido</button>{" "}
+                <button onClick={() => setModalType("create")}>Crear tarea</button>
+                {todos.length > 0 ?
+                    <TodosList todos={todos} /> :
+                    <h1>Sin tareas</h1>}
+                <NewTodo />
+            </ModalType.Provider>
+        {/* </InformarTodos.Provider> */}
     </Requery.Provider>)
 }
 export default QueryTodos;
