@@ -5,12 +5,15 @@ import useApi from "../hooks/useApi";
 import Token from "../contexts/token";
 import { Result } from "./Result";
 import { PATHS } from "../constants/paths";
+import { updateName } from "../actions/user";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const token = useContext(Token);
   const [formState, setFormState] = useState(DEFAULT_STATE);
   const [resultMsg, setResultMsg] = useState(null);
   // const [result, setResult] = useState(null);
+  const dispatch = useDispatch();
 
   const onChange = (key) => {
     return (e) => setFormState({
@@ -31,6 +34,7 @@ const Register = () => {
       if (registerRequest.data && registerRequest.data.token && token.current == "") {
         token.update(registerRequest.data.token);
         localStorage.setItem('token', registerRequest.data.token);
+        dispatch(updateName(registerRequest.data.username));
         setResultMsg("Te has registrado y conectado correctamente. Ya puedes gestionar tus tareas");
         // setResult({
         //   ok: true,

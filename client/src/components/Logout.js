@@ -4,6 +4,7 @@ import Home from "../views/Home";
 import { useDispatch } from "react-redux";
 import { disconnect } from '../actions/connection';
 import { Result } from "../views/Result";
+import { updateName } from "../actions/user";
 
 const Logout = () => {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Logout = () => {
             if (token.current && token.current != "") {
                 token.update("");
                 localStorage.setItem('token', "");
-                // dispatch(addTodo(disconnect));
+                dispatch(updateName(null));
                 setResultMsg("Te has desconectado correctamente. Gracias por usar mi aplicación¡¡");
             } else {
                 if (resultMsg == null){

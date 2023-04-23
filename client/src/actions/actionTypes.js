@@ -1,9 +1,11 @@
 const actions = [
 // connection
 "CONNECT",
-"DISCONNECT"
-];
+"DISCONNECT",
 
+  // Usuarios
+  "UPDATE_NAME"
+];
 
 const actionTypes = {};
 actions.forEach(action => {

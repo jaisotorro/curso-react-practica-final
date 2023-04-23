@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { connect } from "../actions/connection";
 import { PATHS } from "../constants/paths";
 import { Result } from "./Result";
+import { updateName } from "../actions/user";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Login = () => {
       if (loginRequest.data && loginRequest.data.token && token.current == ""){
         token.update(loginRequest.data.token);
         localStorage.setItem('token', loginRequest.data.token);
-        // dispatch(addTodo(connect));
+        dispatch(updateName(loginRequest.data.username));
         setResultMsg("Te has conectado correctamente. Ya puedes gestionar tus tareas");
       }
       if (loginRequest.error != null && loginRequest.error != "") {
