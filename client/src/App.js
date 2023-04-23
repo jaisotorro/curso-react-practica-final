@@ -28,6 +28,7 @@ const App = () => {
   // const [showModal, setShowModal] = useState(false);
   // const openModal = () => setShowModal(true);
   // const closeModal = () => setShowModal(false);
+  // const [home,setHome] = useState(false);
 
   if (localStorage.getItem("token") != "" && token == "") {
     setToken(localStorage.getItem("token"));
@@ -51,13 +52,17 @@ const App = () => {
   // }
 
   const onReset = () => {
-    // ¿?
+    // setHome(true);
   };
 
 
   return (
     // <ErrorBoundary message="Algo ha salido mal!" onReset={onReset}>
-    <ErrorBoundary message="Se ha producido un error inesperado en la aplicación" onReset={onReset}>
+    <ErrorBoundary 
+      message="Se ha producido un error inesperado en la aplicación" 
+      // home = {home} 
+      onReset={onReset}
+    >
       <Provider store={store}>
         <Token.Provider value={{ current: token, update: setToken }}>
           <Router>

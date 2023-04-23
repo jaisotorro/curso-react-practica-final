@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react" // comentar provis para provocar error
+import { useState, useContext, useEffect } from "react" // comentar para provocar error y probar ErrorBoundary
 import { DEFAULT_STATE } from "../constants/form";
 import "../styles/Form.css";
 import useApi from "../hooks/useApi";

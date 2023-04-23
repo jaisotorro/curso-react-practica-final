@@ -1,4 +1,7 @@
 import React from "react";
+import { PATHS } from "../constants/paths";
+import { Route, Router, NavLink } from "react-router-dom";
+import Home from "../views/Home";
 
 /**
  * Este componente necesita ser de tipo clase, ya que no existen ningún comportamiento
@@ -50,14 +53,31 @@ class ErrorBoundary extends React.Component {
     if (this.state.error === true) {
       return (
         <section aria-label="Hubo un error en la aplicacion">
+          {/* <Router> => da error en Router al renderizar este componente
+            <NavLink exact activeClassName="active" to={ROOTPATH}>
+              Inicio
+            </NavLink>
+            <Route path={ROOTPATH} exact>              
+                <Home />
+              </Route>
+          </Router> */}
           <h1>{this.props.message}</h1>
           <button onClick={this.onClick}>Volver</button>
         </section>
       );
     }
-
-    // Si no hay errores, mostramos los nodos descendientes
     return this.props.children;
+
+    // No me sirve, no incluye los enlaces
+    // if (this.props.home) {
+    //   return(
+    //     <Home />
+    //   );
+    // }
+    
+    // if (!this.props.home) {
+    //   return this.props.children;
+    // }
   }
 }
 
