@@ -77,7 +77,7 @@ const App = () => {
                   Conectarme
                 </NavLink>{" "}
                 <NavLink activeClassName="active" to={ROOTPATH + PATHS.private}>
-                  Mis tareas
+                  Mis notas
                 </NavLink>{" "}
                 <NavLink activeClassName="active" to={ROOTPATH + PATHS.logout}>
                   Desconectarme
@@ -87,7 +87,7 @@ const App = () => {
                 </NavLink>{" "}
               </nav>
               <Route path={ROOTPATH} exact>              
-              <Layout title="GESTION DE TAREAS ">
+              <Layout title="GESTION DE NOTAS ">
                 <Home />
                 </Layout>
               </Route>
@@ -97,7 +97,7 @@ const App = () => {
               <Route path={ROOTPATH + PATHS.login}>
                 <Login />
               </Route>
-              <ErrorBoundary message="Se ha producido un error inesperado en la gestión de tareas" onReset={onReset}>
+              <ErrorBoundary message="Se ha producido un error inesperado en la gestión de notas" onReset={onReset}>
                 <PrivateRoute path={ROOTPATH + PATHS.private}>
                   <QueryTodos />
                 </PrivateRoute>

@@ -17,7 +17,7 @@ console.log("en CreateTodo");
   }
 
 
-  // Función para crear una nueva tarea
+  // Función para crear una nueva nota
   const create = (e) => {
 console.log("*** en CreateTodo-create-ini");
     e.preventDefault();
@@ -28,7 +28,7 @@ console.log("*** en CreateTodo-create-ini");
     <div className="col-6">
       <form onSubmit={create}>
         <br/><br/>
-        <h1>Nueva tarea</h1>
+        <h1>Nueva nota</h1>
         <h1>
         <label htmlFor="title">Título: </label>
         <input id="title" type="text" value={formState.title} onChange={onChange("title")} />
@@ -39,7 +39,7 @@ console.log("*** en CreateTodo-create-ini");
         <input id="content" type="text" value={formState.content} onChange={onChange("content")} />
         </h1>
         <br/>
-        <input type="submit" value="Guardar tarea" />
+        <input type="submit" value="Guardar nota" />
       </form>
     </div>
   </div>

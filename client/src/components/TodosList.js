@@ -61,7 +61,7 @@ const TodosList = ({ todos }) => {
   return (<TodoToUpdate.Provider value={{ current: todoToUpdate, update: setTodoToUpdate }}>
     <Todo.Provider value={{ current: todo, update: setTodo }}>
         <section className="todoslist">
-          <h3>Lista de Tareas</h3>
+          <h3>Lista de notas</h3>
           <ul className="todoslist_list">
             {todos.map((todo, i) => (
               <li key={i} className="todoslist_item" >
@@ -73,7 +73,7 @@ const TodosList = ({ todos }) => {
             ))}
           </ul>
           <Modal show={showModal && idTodo != null} onClose={closeModal}>
-              <h3>¿Confirmas la eliminación de esta tarea?</h3>
+              <h3>¿Confirmas la eliminación de esta nota?</h3>
               <button onClick={deleteTodo}>Aceptar</button>
               <button onClick={closeModal}>Cancelar</button>
           </Modal>

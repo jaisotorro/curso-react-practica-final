@@ -38,10 +38,10 @@ const Register = () => {
         const now = new Date();
         dispatch(updateData({user: registerRequest.data.username, time: now.getHours()+":"+now.getMinutes()}));
         // dispatch(updateName(registerRequest.data.username)); // provis
-        setResultMsg("Te has registrado y conectado correctamente. Ya puedes gestionar tus tareas");
+        setResultMsg("Te has registrado y conectado correctamente. Ya puedes gestionar tus notas");
         // setResult({
         //   ok: true,
-        //   msg: "Te has registrado y conectado correctamente. Ya puedes gestionar tus tareas"
+        //   msg: "Te has registrado y conectado correctamente. Ya puedes gestionar tus notas"
         // });
       }
       if (registerRequest.error != null && registerRequest.error != "") {

@@ -31,7 +31,7 @@ const AppBackup = () => {
   //   </main>
   // );
 
-  // return (<Layout title="APLICACION DE GESTION DE TAREAS ">
+  // return (<Layout title="APLICACION DE GESTION DE NOTAS ">
   //   <Register />
   // </Layout>
   // );
@@ -39,7 +39,7 @@ const AppBackup = () => {
   return (
     <Token.Provider>
       <Router>
-      <Layout title="APLICACION DE GESTION DE TAREAS ">
+      <Layout title="APLICACION DE GESTION DE NOTAS ">
           <nav className="secondary">
             <NavLink exact activeClassName="active" to="/">
               Inicio
@@ -51,10 +51,10 @@ const AppBackup = () => {
               Conectarme
             </NavLink>{" "}
             <NavLink activeClassName="active" to="/consultaTodos">
-              Consultar mis tareas
+              Consultar mis notas
             </NavLink>{" "}
             <NavLink activeClassName="active" to="/newTodo">
-              Nueva tarea
+              Nueva nota
             </NavLink>{" "}
             <NavLink activeClassName="active" to="/logout">
               Desconectarme

@@ -40,7 +40,7 @@ const NewTodo = () => {
   return (<Modal show={modalType.current == "create"} onClose={closeModal}>
       <form onSubmit={create}>
         <br/><br/>
-        <h1>Nueva tarea</h1>
+        <h1>Nueva nota</h1>
         <h1>
         <label htmlFor="title">Título: </label>
         <input id="title" type="text" ref={titleRef} defaultValue={formState.title} />

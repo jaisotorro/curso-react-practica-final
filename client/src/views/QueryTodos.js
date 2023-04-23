@@ -76,14 +76,14 @@ const QueryTodos = () => {
     return (<Requery.Provider value={{ current: requery, update: setRequery }} >
         {/* <InformarTodos.Provider value={{ current: informarTodos, update: setInformarTodos }} > */}
             <ModalType.Provider value={{ current: modalType, update: setModalType }}>
-                <h1>Gestión de tareas</h1>
-                <button onClick={query}>Consultar tareas</button>{" "}
-                <button onClick={() => { requeryAndSort("title") }}>Reordenar tareas por título</button>{" "}
-                <button onClick={() => { requeryAndSort("content") }}>Reordenar tareas por contenido</button>{" "}
-                <button onClick={() => setModalType("create")}>Crear tarea</button>
+                <h1>Gestión de notas</h1>
+                <button onClick={query}>Consultar notas</button>{" "}
+                <button onClick={() => { requeryAndSort("title") }}>Reordenar notas por título</button>{" "}
+                <button onClick={() => { requeryAndSort("content") }}>Reordenar notas por contenido</button>{" "}
+                <button onClick={() => setModalType("create")}>Crear nota</button>
                 {todos.length > 0 ?
                     <TodosList todos={todos} /> :
-                    <h1>Sin tareas</h1>}
+                    <h1>Sin notas</h1>}
                 <NewTodo />
             </ModalType.Provider>
         {/* </InformarTodos.Provider> */}

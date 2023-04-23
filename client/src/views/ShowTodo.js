@@ -18,7 +18,7 @@ const ShowTodo = () => {
       }
     
     useEffect(() => {
-        // Si la tarea del contexto tiene el id y solamente el id, la recperamos completa del API y la guardamos
+        // Si la nota del contexto tiene el id y solamente el id, la recperamos completa del API y la guardamos
         console.log("todo.current: " + todo.current);
         if (todo.current != null && todo.current.id != "" && !todo.current.title ) {
             queryTodoRequest.updateRequest({ url: PATHS.api.notes + "/" + todo.current.id, 
@@ -40,7 +40,7 @@ const ShowTodo = () => {
         queryTodoRequest.data && modalType.current == "show" ?
             <Modal show={modalType.current != ""} onClose={closeModal}>
                 <br /><br />
-                <h1>Datos tarea</h1>
+                <h1>Datos nota</h1>
                 <h2>{"ID (provis): " + queryTodoRequest.data.id}</h2>
                 <br />
                 <h2>{"Titulo: " + queryTodoRequest.data.title}</h2>

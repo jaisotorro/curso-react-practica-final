@@ -54,7 +54,7 @@ const UpdateTodo = ({ idTodo }) => {
     return (<Modal show={modalType.current == "update" && todo.current != null && todo.current.id} onClose={closeModal}>
         <form onSubmit={saveUpdatedTodo}>
             <br /><br />
-            <h1>Modificar tarea</h1>
+            <h1>Modificar nota</h1>
             <h1>
                 <label htmlFor="title">Título: </label>
                 <input id="title" type="text" ref={titleRef} defaultValue={formState.title} />
