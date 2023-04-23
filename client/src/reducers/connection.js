@@ -1,24 +1,19 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    user: "",
+    user: null,
     time: null
   }
 
   const connection = (state = initialState, action) => {
     switch(action.type) {
-      case actionTypes.CONNECT:
+      case actionTypes.UPDATE_DATA:
         return {
-          name: action.user,
-          time: new Date()
-        };
-      case actionTypes.DISCONNECT:
-        return {
-          name: action.user,
+          user: action.user,
           time: action.time
-        };
+        }
       default:
-      return state;
+        return state;
     }
   }
   export default connection;

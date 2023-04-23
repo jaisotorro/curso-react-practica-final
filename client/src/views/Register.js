@@ -6,6 +6,7 @@ import Token from "../contexts/token";
 import { Result } from "./Result";
 import { PATHS } from "../constants/paths";
 import { updateName } from "../actions/user";
+import { updateData } from '../actions/connection';
 import { useDispatch } from "react-redux";
 
 const Register = () => {
@@ -34,7 +35,9 @@ const Register = () => {
       if (registerRequest.data && registerRequest.data.token && token.current == "") {
         token.update(registerRequest.data.token);
         localStorage.setItem('token', registerRequest.data.token);
-        dispatch(updateName(registerRequest.data.username));
+        const now = new Date();
+        dispatch(updateData({user: registerRequest.data.username, time: now.getHours()+":"+now.getMinutes()}));
+        // dispatch(updateName(registerRequest.data.username)); // provis
         setResultMsg("Te has registrado y conectado correctamente. Ya puedes gestionar tus tareas");
         // setResult({
         //   ok: true,

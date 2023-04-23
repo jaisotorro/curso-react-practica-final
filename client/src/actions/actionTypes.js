@@ -1,10 +1,6 @@
 const actions = [
-// connection
-"CONNECT",
-"DISCONNECT",
-
-  // Usuarios
-  "UPDATE_NAME"
+"UPDATE_DATA",
+  "UPDATE_NAME" // provis
 ];
 
 const actionTypes = {};

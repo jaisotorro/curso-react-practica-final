@@ -1,9 +1,7 @@
 // import { configureStore } from "@reduxjs/toolkit"; // no lo reconoce
-import { createStore, combineReducers } from "redux";  //deprecado
-import user from "./reducers/user";
+import { createStore, combineReducers } from "redux"; 
+import user from "./reducers/user"; 
+import connection from "./reducers/connection";
 
-// export default configureStore({reducer: connection});
-// export default createStore({connection}); //deprecado
-// export default createStore(connection); //deprecado
-// export default createStore(combineReducers({ connection })); 
-export default createStore(combineReducers({ user })); 
+export default createStore(combineReducers({ connection }));  //deprecado 
+// export default createStore(combineReducers({ user }));   // provis

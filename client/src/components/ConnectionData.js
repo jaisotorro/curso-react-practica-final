@@ -1,6 +1,6 @@
 import Modal from "./Modal";
 import { useState } from "react";
- import { useSelector, useDispatch } from "react-redux";
+ import { useSelector} from "react-redux";
 import { getUser, getTime } from "../selectors/connection"
 import store from "../store";
 
@@ -13,17 +13,16 @@ import { getName } from "../selectors/user";
 
 
 
+
 const ConnectionData = () => {
 
   const [showModal, setShowModal] = useState(false);
   
-  // store.dispatch(userActions.updateName("Bicheja"));
-  // store.dispatch(userActions.updateName("Tana"));
-  // const usuario = store.getState().user.name;
-  // const usuario = useSelector((state) => state.connection.user);
-  const usuario = useSelector((state) => getName(state));
+  const usuario = useSelector((state) => getUser(state));
+  const time = useSelector((state) => getTime(state));
 
-  const time = null; // pendiente
+  // const usuario = useSelector((state) => getName(state)); // provis
+  // const time = null; // provis
   
   
   // const user = store.connection.user;

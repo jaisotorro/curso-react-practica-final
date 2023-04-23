@@ -9,6 +9,7 @@ import { connect } from "../actions/connection";
 import { PATHS } from "../constants/paths";
 import { Result } from "./Result";
 import { updateName } from "../actions/user";
+import { updateData } from '../actions/connection';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -37,7 +38,9 @@ const Login = () => {
       if (loginRequest.data && loginRequest.data.token && token.current == ""){
         token.update(loginRequest.data.token);
         localStorage.setItem('token', loginRequest.data.token);
-        dispatch(updateName(loginRequest.data.username));
+        const now = new Date();
+        dispatch(updateData({user: loginRequest.data.username, time: now.getHours()+":"+now.getMinutes()}));
+        // dispatch(updateName(loginRequest.data.username)); // provis
         setResultMsg("Te has conectado correctamente. Ya puedes gestionar tus tareas");
       }
       if (loginRequest.error != null && loginRequest.error != "") {
