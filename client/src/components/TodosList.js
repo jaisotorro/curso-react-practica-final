@@ -1,5 +1,5 @@
 import "../styles/TodosList.css";
-import useApi from "../hooks/useApi"; // comentar provis para provocar error
+import useApi from "../hooks/useApi"; // comentar para provocar error y probar Error Boundary
 import Modal from "../components/Modal";
 import { useContext, useState } from "react";
 import Todo from "../contexts/todo";
@@ -61,11 +61,12 @@ const TodosList = ({ todos }) => {
   return (<TodoToUpdate.Provider value={{ current: todoToUpdate, update: setTodoToUpdate }}>
     <Todo.Provider value={{ current: todo, update: setTodo }}>
         <section className="todoslist">
-          <h3>Lista de notas</h3>
+          <h3>Lista de notas (Ttiulo: descripcion): </h3>
           <ul className="todoslist_list">
             {todos.map((todo, i) => (
               <li key={i} className="todoslist_item" >
                 {todo.title + ": " + todo.content}
+                {" "}
                 <button onClick={() => openModal(todo, "show")}>Ver</button>
                 <button onClick={() => openModal(todo, "update")}>Modificar</button>                
                 <button onClick={() => openModalDelete(todo.id)}>Eliminar</button>

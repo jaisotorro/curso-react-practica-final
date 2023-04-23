@@ -21,9 +21,6 @@ const ConnectionData = () => {
   const usuario = useSelector((state) => getUser(state));
   const time = useSelector((state) => getTime(state));
 
-  // const usuario = useSelector((state) => getName(state)); // provis
-  // const time = null; // provis
-  
   
   // const user = store.connection.user;
     // const time = store.connection.time;
@@ -48,7 +45,6 @@ const ConnectionData = () => {
                 <h4>{"Fecha/Hora conexión: " + time}</h4> 
               </>
             }
-            <button onClick={() => setShowModal(false)}>Aceptar</button>
           {/* </Modal> */}
         </section>
       );

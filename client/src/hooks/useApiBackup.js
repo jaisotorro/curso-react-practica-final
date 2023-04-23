@@ -51,7 +51,6 @@ console.log("*** En useApi-updateParams-fin. requestBody.usuario= "+requestBody.
   // }, [method, token]);
 
   useEffect(() => {
-let tokenProvis;
 const ahora = new Date();
 console.log("en useApi-useEffect-ini. Ahora: "+ahora.getHours()+":"+ahora.getMinutes()+":"+ahora.getSeconds()+"."+ahora.getMilliseconds());
           // Limpiamos los errores
@@ -70,7 +69,6 @@ console.log("en useApi-useEffect-ini. Ahora: "+ahora.getHours()+":"+ahora.getMin
                 } else {
                   setData(json);
                    setToken(json.token);
-                   tokenProvis = json.token;
                 }
               })
               .finally(() => setLoading(false));
@@ -79,7 +77,6 @@ console.log("en useApi-useEffect-ini. Ahora: "+ahora.getHours()+":"+ahora.getMin
           console.log("*** En useApii-useEffect-fin-2. error= "+error);
           console.log("*** En useApii-useEffect-fin 3. data= "+data);
           console.log("*** En useApii-useEffect-fin 4. token= "+token);
-          console.log("*** En useApii-useEffect-fin 5. tokenProvis= "+tokenProvis);
    
       // }, [url, method, token, requestBody ]);
     }, [url]);      

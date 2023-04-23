@@ -11,7 +11,7 @@ import Token from "./contexts/token";
 import Logout from "./components/Logout";
 import Forbiden from "./views/Forbiden";
 import PrivateRoute from "./components/PrivateRoute";
-import Login from "./views/Login"; // comentado provis para provocar error
+import Login from "./views/Login"; // comentar para provocar error y probar ErrorBoundary
 import { Provider } from "react-redux";
 import store from "./store";
 import ConnectionData from "./components/connectionData";
@@ -111,8 +111,8 @@ const App = () => {
               <Route path={ROOTPATH + PATHS.connectionData}>
                 <ConnectionData />
               </Route>
-              <h3>{"token en estado: " + token}</h3>
-              <h3>{"token en localStorage: " + localStorage.getItem('token')}</h3>
+              {/* <h3>{"token en estado: " + token}</h3>
+              <h3>{"token en localStorage: " + localStorage.getItem('token')}</h3> */}
           </Router>
         </Token.Provider>
       </Provider>

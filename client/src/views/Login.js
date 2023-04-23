@@ -40,7 +40,6 @@ const Login = () => {
         localStorage.setItem('token', loginRequest.data.token);
         const now = new Date();
         dispatch(updateData({user: loginRequest.data.username, time: now.getHours()+":"+now.getMinutes()}));
-        // dispatch(updateName(loginRequest.data.username)); // provis
         setResultMsg("Te has conectado correctamente. Ya puedes gestionar tus notas");
       }
       if (loginRequest.error != null && loginRequest.error != "") {

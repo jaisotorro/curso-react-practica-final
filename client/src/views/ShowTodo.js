@@ -41,7 +41,6 @@ const ShowTodo = () => {
             <Modal show={modalType.current != ""} onClose={closeModal}>
                 <br /><br />
                 <h1>Datos nota</h1>
-                <h2>{"ID (provis): " + queryTodoRequest.data.id}</h2>
                 <br />
                 <h2>{"Titulo: " + queryTodoRequest.data.title}</h2>
                 <br />

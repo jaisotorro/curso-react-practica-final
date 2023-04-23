@@ -60,8 +60,6 @@ const QueryTodos = () => {
         switch (sortBy) {
             case "title":
                 setTodos([...todos].sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0)));
-                // const listaProvis = [...todos].sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0));
-                // setTodos(listaProvis);
                 break;
             case "content":
                 setTodos([...todos].sort((a, b) => (a.content > b.content ? 1 : a.content < b.content ? -1 : 0)));
@@ -79,7 +77,7 @@ const QueryTodos = () => {
                 <h1>Gestión de notas</h1>
                 <button onClick={query}>Consultar notas</button>{" "}
                 <button onClick={() => { requeryAndSort("title") }}>Reordenar notas por título</button>{" "}
-                <button onClick={() => { requeryAndSort("content") }}>Reordenar notas por contenido</button>{" "}
+                <button onClick={() => { requeryAndSort("content") }}>Reordenar notas por descripción</button>{" "}
                 <button onClick={() => setModalType("create")}>Crear nota</button>
                 {todos.length > 0 ?
                     <TodosList todos={todos} /> :

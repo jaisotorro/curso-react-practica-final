@@ -3,7 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { resolve } = require("path");
 // const { rootPath } = "/";
 // const  rootPath  = "/";
-const  rootPath  = "/practica-final";
+const  rootPath  = "/training-notes";
 
 /**
  * Configuración para compilar el cliente de la práctica final

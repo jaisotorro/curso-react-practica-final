@@ -20,7 +20,6 @@ const Logout = () => {
                 token.update("");
                 localStorage.setItem('token', "");
                 dispatch(updateData({user: null, time: null}));
-                // dispatch(updateName(null)); provis
                 setResultMsg("Te has desconectado correctamente. Gracias por usar mi aplicación¡¡");
             } else {
                 if (resultMsg == null){

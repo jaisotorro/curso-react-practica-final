@@ -1,6 +1,5 @@
 const actions = [
-"UPDATE_DATA",
-  "UPDATE_NAME" // provis
+"UPDATE_DATA"
 ];
 
 const actionTypes = {};
