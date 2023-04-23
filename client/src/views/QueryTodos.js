@@ -79,9 +79,8 @@ const QueryTodos = () => {
                 <button onClick={() => { requeryAndSort("title") }}>Reordenar notas por título</button>{" "}
                 <button onClick={() => { requeryAndSort("content") }}>Reordenar notas por descripción</button>{" "}
                 <button onClick={() => setModalType("create")}>Crear nota</button>
-                {todos.length > 0 ?
-                    <TodosList todos={todos} /> :
-                    <h1>Sin notas</h1>}
+                {todos.length > 0 && <TodosList todos={todos} />}
+                {queryTodosRequest && queryTodosRequest.data && queryTodosRequest.data.length == 0 && <h1>Sin notas</h1>}    
                 <NewTodo />
             </ModalType.Provider>
         {/* </InformarTodos.Provider> */}
